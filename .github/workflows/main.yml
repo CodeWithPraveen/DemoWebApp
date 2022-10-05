@@ -1,10 +1,14 @@
-name: Docker
+name: Build and push BrezyWeather image
 
 on:
   push:
-     branches:
+     branches: 
       - 'main'
-      
+
+env:
+  IMAGE_REPOSITORY_NAME: demowebapp
+  IMAGE_TAG: 1.0.0
+  
 jobs:
   build:
     name: Build container image
@@ -22,4 +26,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: crbrezyweatherprod001.azurecr.io/demowebapp:0.0.1          
+          #tags example: cbbrezyweatherprodxxx.azurecr.io/demowebapp:0.0.1
+          tags: ${{ secrets.ACR_SERVER }}/${{ IMAGE_REPOSITORY_NAME }}:${{ IMAGE_TAG }}          
